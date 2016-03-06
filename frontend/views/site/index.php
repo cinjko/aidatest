@@ -1,53 +1,97 @@
 <?php
 
-/* @var $this yii\web\View */
+use yii\bootstrap\ActiveForm;
+use yii\helpers\Html;
+
+/* @var $this yii\web\View
+ * @var $model \frontend\models\UserCard
+ */
 
 $this->title = 'My Yii Application';
 ?>
+<?php
+foreach ($user_card as $item) {
+    $user_data = $item;
+}
+?>
 <div class="site-index">
 
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
+    <div class="container">
+        <div class="col-md-3">
+            <h2>Card data</h2>
+            <table class="table table-hover">
+                <tbody>
+                <tr>
+                    <td><?php echo $user_data->user->username; ?></td>
+                </tr>
+                <tr>
+                    <td><?php echo $user_data->card_number; ?></td>
+                </tr>
+                <tr>
+                    <td><?php echo $user_data->card_amount; ?> грн</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <div class="row">
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
+                <?php $form = ActiveForm::begin([
+                    'id' => 'transaction',
+                    'method' => 'post',
+                    'action' => 'card/transaction',
+                ]); ?>
+                <?php $model = new \frontend\models\UserCard(); ?>
+                    <br><br><br>
+                    <div class="input-group-md">
+                        <label for="sum">Sum</label>
+                        <?= Html::input('text', 'sum', '', [
+                            'id' => 'send_currency',
+                            'class' => 'form-control',
+                            'pattern' => '^[\d]*\.?[0-9]{0,2}$'
+                        ]); ?><br>
+                    </div>
 
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
+                    <div class="input-group-md">
+                        <?= $form->field($model, 'card_number')->textInput([
+                            'autofocus' => true,
+                            'placeholder' => 'XXXX XXXX XXXX XXXX'
+                        ]); ?>
+                    </div>
 
-    <div class="body-content">
+                    <div class="input-group-md">
+                        <label for="sum">Receiver card number</label>
+                        <?= Html::input('text', 'receiver_card_number', '', [
+                            'placeholder' => 'XXXX XXXX XXXX XXXX',
+                            'id' => 'send_currency',
+                            'class' => 'form-control',
+                            'pattern' => '^[\d]{16}$'
+                        ]); ?><br>
+                    </div>
 
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
+                    <div class="input-group-md">
+                        <?= $form->field($model, 'expiration_date')->textInput([
+                            'autofocus' => true,
+                            'placeholder' => 'Format yyyy-m'
+                        ]); ?>
+                    </div>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+                    <div class="input-group-md">
+                        <?= $form->field($model, 'cv2')->textInput([
+                            'autofocus' => false,
+                            'autocomplete' => 'false',
+                            'placeholder' => '***'
+                        ]); ?>
+                    </div>
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
+                    <div class="form-group">
+                        <?= Html::submitButton('Send', [
+                            'class' => 'btn btn-primary',
+                            'name' => 'signup-button'
+                        ]); ?>
+                    </div>
+                <?php ActiveForm::end(); ?>
             </div>
         </div>
-
     </div>
 </div>

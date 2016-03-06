@@ -28,14 +28,18 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
+        'request' => [
+            'baseUrl' => ''
+        ],
         'urlManager' => [
+            'scriptUrl' => '/index.php',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'card' => 'card/transaction'
             ],
         ],
-        */
+
     ],
     'params' => $params,
 ];

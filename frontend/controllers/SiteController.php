@@ -12,6 +12,7 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use frontend\models\UserCard;
 
 /**
  * Site controller
@@ -72,7 +73,15 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $user_card = UserCard::find()
+            ->with('user')
+            ->where([
+                'user_id' => Yii::$app->user->id
+            ])->all();
+
+        return $this->render('index', [
+            'user_card' => $user_card,
+        ]);
     }
 
     /**
