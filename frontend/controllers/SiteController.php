@@ -73,6 +73,12 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        if(\Yii::$app->user->isGuest){
+            $model = new LoginForm();
+            return $this->render('login', [
+                'model' => $model,
+            ]);
+        }
         $user_card = UserCard::find()
             ->with('user')
             ->where([

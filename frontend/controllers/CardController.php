@@ -24,7 +24,6 @@ class CardController extends Controller
         $session->open();
         $_csrf = \Yii::$app->request->post('_csrf');
         if ($session->isActive) {
-            echo '___';
             if ($session['_csrf'] == $_csrf) {
                 return $this->goHome();
             }
