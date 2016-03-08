@@ -18,7 +18,7 @@ $this->title = 'My Yii Application';
         <div class="container">
             <div class="col-md-3">
                 <h2>Card data</h2>
-                <table class="table table-hover">
+                <table class="table table-hov   er">
                     <tbody>
                     <tr>
                         <td><?php echo $user_data->user->username; ?></td>

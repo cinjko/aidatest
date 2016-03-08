@@ -69,12 +69,12 @@ class CardController extends Controller
                 }
                 $transaction->commit();
                 $user_transactions = $user_transaction->find()->where(['sender_id' => $sender_data->id])->all();
-//                var_dump($user_transactions);die;
                 return $this->render('transactionSuccess', [
                     'user_transactions' => $user_transactions
                 ]);
             } catch (Exception $e) {
-                echo $e;
+                $transaction->rollBack();
+                return $e;
             }
         }
     }
